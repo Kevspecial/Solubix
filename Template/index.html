@@ -10,8 +10,8 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(200deg, #FFAF0 0%, #F5F5DC 100%);
-      color: #228B22;
+    background: linear-gradient(200deg, #FFFAF0 0%, #F5F5DC 100%);
+      color:#228B22;
       font-family: 'Inter', Arial;
       min-height: 100vh;
       padding: 20px;
@@ -197,7 +197,7 @@
   </style>
 </head>
 <body>
-<script> type="py" src="App/app.py" config="./script.js"</script>
+    <script type="py" src="App/app.py" config="./script.js"></script>
 
 
   <div class="container">
@@ -302,7 +302,7 @@
 
   <script>
 
-    const systemSolvents = new Set([{% for solvent in solvents %}"{{ solvent }}",{% endfor %}]);
+    const systemSolvents = new Set( solvents|json_encode|safe );
 
     function updateLastUpdated() {
       const now = new Date();
@@ -468,7 +468,8 @@
     updateLastUpdated();
 
 
-    <script>
+      </script>
+    </body>
     // Fetch solutes and solvents from API
     let solutes = {};
     let solvents = {};

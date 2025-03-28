@@ -11,10 +11,8 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-@app.route('/api/SOLVENTS')
-def get_solvents():
-    # Solvent database (HSP values)
-    SOLVENTS ={
+# Solvent database (HSP values)
+SOLVENTS = {
     "Water": {"d":15.5, "p": 16.0, "h": 42.3},
     "Ethanol": {"d": 15.8, "p": 8.8, "h": 19.4},
     "Acetone": {"d": 15.5, "p": 10.4, "h": 7.0},
@@ -289,6 +287,9 @@ def get_solvents():
    "Acetic acid ethyl ester": {"d": 15.8, "p": 5.3, "h": 7.2},
    "Trichloro-methane": {"d": 17.8, "p": 3.1, "h": 5.7},
     }
+
+@app.route('/api/SOLVENTS')
+def get_solvents():
     return jsonify(SOLVENTS)
 
 def get_solutes():
@@ -492,6 +493,7 @@ def create_3d_plot(plot_data, solute=None):
 
 
 def get_solute_from_request(data):
+    global SOLUTES  # Ensure SOLUTES is accessible within this function
     solute_name = data.get("solute_name")
     if solute_name and solute_name in SOLUTES:
         logger.debug("Using preset solute: %s", solute_name)
