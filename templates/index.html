@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solubix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Solubix</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="solute-select">Solute:</label>
+                <select id="solute-select">
+                    <option value="">-- Choose a solute --</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="number" id="temperature" value="25" min="0" max="100">
+            </div>
+
+            <div class="control-group">
+                <label>Solute HSP Parameters</label>
+                <div class="input-group">
+                    <input type="number" id="solute-d" placeholder="δD (MPa½)" step="0.1" min="0">
+                    <input type="number" id="solute-p" placeholder="δP (MPa½)" step="0.1" min="0">
+                    <input type="number" id="solute-h" placeholder="δH (MPa½)" step="0.1" min="0">
+                    <input type="number" id="solute-ro" placeholder="Ro (MPa½)" step="0.1" min="0" value="5.0">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="solvent-search">Find Solvents</label>
+                <div class="station-search">
+                    <input type="text" id="solvent-search" placeholder="Search for solvents...">
+                    <div id="search-results"></div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="solvents">Selected Solvents</label>
+                <select id="solvents" multiple>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+
+            <button id="calculate">Calculate Solubility</button>
+        </div>
+
+        <div class="section-header">
+            <h2>Results</h2>
+            <div class="last-updated" id="last-updated"></div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Solvent</th>
+                        <th>δD (MPa½)</th>
+                        <th>δP (MPa½)</th>
+                        <th>δH (MPa½)</th>
+                        <th>Ra (MPa½)</th>
+                        <th>RED</th>
+                        <th>Solubility</th>
+                    </tr>
+                </thead>
+                <tbody id="results"></tbody>
+            </table>
+            <div id="message" style="display: none;">Enter solute parameters and select solvents to calculate.</div>
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <!-- 3D Plot container -->
+        <div id="plot-container" class="plot-container"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
