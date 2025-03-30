@@ -30,8 +30,10 @@ A web-based application for calculating and visualizing solubility parameters us
    git clone https://github.com/********/solubility-calculator.git
    cd solubility-calculator
 2. Install dependencies:
+   ```bash
    pip install flask numpy plotly
 3. Run application:
+   ```bash
    python app.py
 4. Access in browser:
    http://localhost:5000
